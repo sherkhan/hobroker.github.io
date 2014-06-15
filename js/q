@@ -1,0 +1,119 @@
+$(document).ready(function() {
+	var add_hunger, add_health, cost;
+	if (played())
+		loadGame();
+	else
+		newGame();
+	h_init();
+	$('.button_action#plus').click(function() {
+		money = parseInt(localStorage.getItem('money'));
+		money_plus = parseInt($('#val', this).text());
+		localStorage.setItem('money', money + money_plus);
+		money = localStorage.getItem('money');
+		$('.val.all_money').text(money);
+	});
+	$('.button_action#minus').click(function() {
+		money = parseInt(localStorage.getItem('money'));
+		money_minus = parseInt($('#val', this).text());
+		if (money >= money_minus) {
+			localStorage.setItem('money', money - money_minus);
+			money = localStorage.getItem('money');
+			$('.val.all_money').text(money);
+			hunger = parseInt(localStorage.getItem('hunger'));
+			if ($(this).attr('what') == 'hunger') {
+				if (hunger > 0 && hunger <= 100) {
+					if ((hunger + add_hunger[$(this).attr('addname')]) > 100)
+						localStorage.setItem('hunger', 100)
+					else
+						localStorage.setItem('hunger', hunger + add_hunger[$(this).attr('addname')])
+					hunger = localStorage.getItem('hunger');
+					localStorage.setItem('health', parseInt(localStorage.getItem('health')) - 5)
+				};
+			}
+			if ($(this).attr('what') == 'health') {
+				if (health > 0 && health <= 100) {
+					if ((health + add_health[$(this).attr('addname')]) > 100)
+						localStorage.setItem('health', 100)
+					else
+						localStorage.setItem('health', health + add_health[$(this).attr('addname')])
+					health = localStorage.getItem('health');
+				};
+				localStorage.setItem('hunger', parseInt(localStorage.getItem('hunger')) - 5)
+			}
+			setHTML();
+		}
+	});
+});
+
+function newGame() {
+	localStorage.setItem('money', 5);
+	localStorage.setItem('hunger', 45);
+	localStorage.setItem('health', 45);
+	money = parseInt(localStorage.getItem('money'));
+	hunger = parseInt(localStorage.getItem('hunger'));
+	health = parseInt(localStorage.getItem('health'));
+	setHTML();
+}
+
+function loadGame() {
+	money = parseInt(localStorage.getItem('money'));
+	hunger = parseInt(localStorage.getItem('hunger'));
+	health = parseInt(localStorage.getItem('health'));
+	setHTML();
+}
+
+function played() {
+	if (localStorage.getItem('money') &&
+		localStorage.getItem('hunger') &&
+		localStorage.getItem('health'))
+		return true;
+	else
+		return false;
+}
+
+function setHTML() {
+	money = parseInt(localStorage.getItem('money'));
+	hunger = parseInt(localStorage.getItem('hunger'));
+	health = parseInt(localStorage.getItem('health'));
+	$('.val.all_money').text(money);
+	$('#hunger #how_much').css('width', hunger + '%');
+	$('#hunger .val').text(hunger);
+	$('#health #how_much').css('width', health + '%');
+	$('#health .val').text(health);
+
+	$('.content .button_action').each(function() {
+		// if (money < cost[$(this).attr('addname')]) {
+		// 	$(this).attr('disabled', true)
+		// }
+	})
+}
+
+function h_init() {
+	add_hunger = {
+		from_trash: 5,
+		hotdog: 20,
+		from_mcdonald: 40,
+		from_supermarket: 75,
+		from_elite_restaurant: 100
+	};
+	add_health = {
+		sleep: 5,
+		aspirin: 20,
+		doctor_consultation: 40,
+		hospital: 75,
+		hospital_house: 100
+	};
+	cost = {
+		from_trash: 0,
+		hotdog: 3,
+		from_mcdonald: 20,
+		from_supermarket: 70,
+		from_elite_restaurant: 140,
+		sleep: 0,
+		aspirin: 3,
+		doctor_consultation: 15,
+		hospital: 60,
+		hospital_house: 130
+	};
+	console.log(cost['aspirin'])
+}

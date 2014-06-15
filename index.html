@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Homeless Simulator</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/jquery-ui.js"></script>
+		<script type="text/javascript" src="js/script.js"></script>
+	</head>
+	<body>
+		<div id="overlay">
+			<p class="alert_text">Oops! Something Went Wrong. . .</p>
+			<!-- <button class="btn">OK</button> -->
+		</div>
+		<!-- <div id="overlay"></div> -->
+		<div id="information" class="m_main">
+			<div id="info">
+				<div id="photo"></div>
+				<table id="personal">
+					<tr><td>Age</td><td><span class="count_year">18</span> years <span class="count_day">6</span> days</td></tr>
+					<tr><td>Money</td><td>$<span class="val all_money">5</span></td></tr>
+					<tr><td>Transport</td><td>Barefoot</td></tr>
+					<tr><td>Immovables</td><td><span class="live_house">Box</span></td></tr>
+					<tr><td>Education</td><td>None</td></tr>
+				</table>
+			</div>
+			<div id="life">
+				<div id="essentials">
+					<h2 class="h2_name">Food</h2>
+					<div class="ess4life" id="hunger"><span class="val hunger">30</span> / 100<div id="how_much"></div></div>
+					<h2 class="h2_name">Health</h2>
+					<div class="ess4life" id="health"><span class="val health">30</span> / 100<div id="how_much"></div></div>
+				</div>
+			</div>
+			<button class="btn" onclick="if(confirm('Sure?')) newGame()">New Game</button>
+		</div>
+		
+		<div id="main_qont" class="m_main">
+			<div class="tabs">
+				<div class="tab">
+					<input type="radio" id="person" name="category" checked>
+					<label for="person"></label>
+					<div class="content">
+						<h2 class="h2_name">Food</h2>
+						<button class="button_action buy" what="hunger" addname="from_trash" id="minus">Eat From Trash <span class="m minus">($<span id="val">#</span>)</span></button>
+						<button class="button_action buy" what="hunger" addname="hotdog" id="minus">Eat Hotdog <span class="m minus">($<span id="val">#</span>)</span></button>
+						<button class="button_action buy" what="hunger" addname="from_mcdonald" id="minus">Eat in McDonald's <span class="m minus">($<span id="val">#0</span>)</span></button>
+						<button class="button_action buy" what="hunger" addname="from_supermarket" id="minus">Stock Up in Supermarket <span class="m minus">($<span id="val">#0</span>)</span></button>
+						<button class="button_action buy" what="hunger" addname="from_elite_restaurant" id="minus">Eat in Elite Restaurant <span class="m minus">($<span id="val">#40</span>)</span></button>
+						<h2 class="h2_name">Health</h2>
+						<button class="button_action buy" what="health" addname="sleep" id="minus">Sleep <span class="m minus">($<span id="val">#</span>)</span></button>
+						<button class="button_action buy" what="health" addname="aspirin" id="minus">Aspirin 325mg <span class="m minus">($<span id="val">#</span>)</span></button>
+						<button class="button_action buy" what="health" addname="doctor_consultation" id="minus">Doctor's Consultation <span class="m minus">($<span id="val">#5</span>)</span></button>
+						<button class="button_action buy" what="health" addname="hospital" id="minus">Hospital <span class="m minus">($<span id="val">#0</span>)</span></button>
+						<button class="button_action buy" what="health" addname="hospital_house" id="minus">Hospital with Dr. House <span class="m minus">($<span id="val">#30</span>)</span></button>
+					</div>
+				</div>
+				
+				<div class="tab">
+					<input type="radio" id="work" name="category">
+					<label for="work"></label>
+					<div class="content">
+						<h2 class="h2_name">Job</h2>
+						<button class="button_action job" addname="panhandle" id="plus">Panhandle <span class="m plus">($<span id="val">#</span>)</span></button>
+						<button class="button_action job" addname="wash_cars" id="plus">Wash Cars <span class="m plus">($<span id="val">#</span>)</span></button>
+						<button class="button_action job" addname="work_in_mcdonald" id="plus">Work in McDonald's <span class="m plus">($<span id="val">#0</span>)</span></button>
+						<button class="button_action job" addname="postman" id="plus">Postman <span class="m plus">($<span id="val">#0</span>)</span></button>
+						<button class="button_action job" addname="driver" id="plus">Driver <span class="m plus">($<span id="val">#0</span>)</span></button>
+						<button class="button_action job" addname="factory_worker" id="plus">Factory Worker <span class="m plus">($<span id="val">#20</span>)</span></button>
+						<button class="button_action job" addname="office_employee" id="plus">Office Employee <span class="m plus">($<span id="val">#00</span>)</span></button>
+						<button class="button_action job" addname="departement_head" id="plus">Departement Head <span class="m plus">($<span id="val">#00</span>)</span></button>
+						<button class="button_action job" addname="head_of_company" id="plus">Head of Company <span class="m plus">($<span id="val"># 000</span>)</span></button>
+						<h2 class="h2_name">Criminal Job</h2>
+						<button class="button_action criminal_job" addname="steal_bicycle" id="plus">Steal Bicycle <span class="m plus">($<span id="val">#0</span>)</span></button>
+						<button class="button_action criminal_job" addname="rob_old_people" id="plus">Rob old People <span class="m plus">($<span id="val">#00</span>)</span></button>
+						<button class="button_action criminal_job" addname="steal_cars" id="plus">Steal Cars <span class="m plus">($<span id="val">#00</span>)</span></button>
+						<button class="button_action criminal_job" addname="sell_drugs" id="plus">Sell Drugs <span class="m plus">($<span id="val">#00</span>)</span></button>
+						<button class="button_action criminal_job" addname="kidnap" id="plus">Kidnap <span class="m plus">($<span id="val">#00</span>)</span></button>
+						<button class="button_action criminal_job" addname="kill_businessman" id="plus">Kill Businessman <span class="m plus">($<span id="val"># 200</span>)</span></button>
+					</div>
+				</div>
+				
+				<div class="tab">
+					<input type="radio" id="buy" name="category">
+					<label for="buy"></label>
+					<div class="content">
+						<h2 class="h2_name">House</h2>
+						<button class="button_action buy house" addname="house_box" id="minus">Box <span class="m minus">($<span id="val">#</span>)</span></button>
+						<button class="button_action buy house" addname="house_cellar" id="minus">Cellar <span class="m minus">($<span id="val">#0</span>/month)</span></button>
+						<button class="button_action buy house" addname="house_hotel" id="minus">Room in Hotel <span class="m minus">($<span id="val">#00</span>/month)</span></button>
+						<button class="button_action buy house" addname="house_apartment" id="minus">Apartment <span class="m minus">($<span id="val">#0000</span>)</span></button>
+						<button class="button_action buy house" addname="house_mansion" id="minus">Mansion <span class="m minus">($<span id="val">#00000</span>)</span></button>
+						<h2 class="h2_name">Transport</h2>
+						<button class="button_action buy only_once" addname="barefoot" id="minus" disabled="disabled">Barefoot <span class="m minus">($<span id="val">#</span>)</span></button>
+						<button class="button_action buy only_once" addname="sneakers" id="minus">Sneakers <span class="m minus">($<span id="val">#5</span>)</span></button>
+						<button class="button_action buy only_once" addname="bicycle" id="minus">Bicycle <span class="m minus">($<span id="val">#00</span></span></button>
+						<button class="button_action buy only_once" addname="old_car" id="minus">Old Car <span class="m minus">($<span id="val">#000</span>)</span></button>
+						<button class="button_action buy only_once" addname="sport_car" id="minus">Sport Car <span class="m minus">($<span id="val">#0000</span>)</span></button>
+						
+						<h2 class="h2_name">Weapon</h2>
+						<button class="button_action buy only_once" addname="knife" id="minus">Knife <span class="m minus">($<span id="val">#5</span>)</span></button>
+						<button class="button_action buy only_once" addname="gun" id="minus">Gun <span class="m minus">($<span id="val">#00</span>)</span></button>
+						<button class="button_action buy only_once" addname="rifle" id="minus">Rifle <span class="m minus">($<span id="val">#500</span></span></button>
+						<button class="button_action buy only_once" addname="bulletproof_vest" id="minus">Bulletproof Vest <span class="m minus">($<span id="val">#000</span>)</span></button>
+					</div>
+				</div>
+				<div class="tab">
+					<input type="radio" id="learn" name="category">
+					<label for="learn"></label>
+					<div class="content">
+						<h2 class="h2_name">Education</h2>
+						<button class="button_action buy only_once" addname="multiplication_table" id="minus">Learn Multiplication Table <span class="m minus">($<span id="val">#00</span>)</span></button>
+						<button class="button_action buy only_once" addname="school" id="minus">Study at School <span class="m minus">($<span id="val">#500</span>)</span></button>
+						<button class="button_action buy only_once" addname="college" id="minus">Study at College <span class="m minus">($<span id="val">#0000</span>)</span></button>
+						<button class="button_action buy only_once" addname="university" id="minus">Study at University <span class="m minus">($<span id="val">#0000</span>)</span></button>
+						<h2 class="h2_name">Criminal Skills</h2>
+						<button class="button_action buy only_once" addname="newbie" id="minus" disabled="disabled">Newbie [Weapon Skill] <span class="m minus">($<span id="val">#00</span>)</span></button>
+						<button class="button_action buy only_once" addname="gangster" id="minus">Gangster [Weapon Skill] <span class="m minus">($<span id="val">#00</span>)</span></button>
+						<button class="button_action buy only_once" addname="hitman" id="minus">Hitman [Weapon Skill] <span class="m minus">($<span id="val">#000</span>)</span></button>
+						<button class="button_action buy only_once" addname="pickpocketing" id="minus">Pickpocketing [Thief Skill] <span class="m minus">($<span id="val">#5</span>)</span></button>
+						<button class="button_action buy only_once" addname="thief_in_law" id="minus">Thief in Law [Thief Skill] <span class="m minus">($<span id="val">#000</span>)</span></button>
+						
+						<h2 class="h2_name">Additional Skills</h2>
+						<button class="button_action buy only_once" addname="driving_licence" id="minus">Driving Licence <span class="m minus">($<span id="val">#00</span>)</span></button>
+						<button class="button_action buy only_once" addname="learn_laws" id="minus">Learn Laws <span class="m minus">($<span id="val">#0000</span>)</span></button>
+						<button class="button_action buy only_once" addname="learn_economy" id="minus">Learn Economy <span class="m minus">($<span id="val">#0000</span>)</span></button>
+						<button class="button_action buy only_once" addname="learn_management" id="minus">Lear Management <span class="m minus">($<span id="val">#0000</span>)</span></button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="notif" class="m_main">
+			<h2 class="h2_name">Notifications</h2>
+		</div>
+	</body>
+</html>
